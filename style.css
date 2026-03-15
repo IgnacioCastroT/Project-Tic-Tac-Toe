@@ -45,7 +45,7 @@ body {
 .header-izquierda {
     display: flex;
     flex-direction: row;
-    gap: 1.2rem;
+    gap: 1rem;
     justify-content: center;
     align-items: center;
 }
@@ -92,8 +92,23 @@ body {
 .player1 {
     border: solid 1px #F5C8B8;
 }
+
+.player1 .score_jugador {
+    color: var(--color-reiniciar);
+}
+
 .player2 {  
     border: solid 1px #a3e4a3;
+}
+
+.player2 .score_jugador {
+    color: rgb(154, 230, 154)
+}
+
+.name_jugador {
+    color: #64bdd1;
+    font-size: 1.2rem;
+    font-weight: 500;
 }
 
 .icono-player {
@@ -104,6 +119,7 @@ body {
     font-size: 1.8rem;
     font-weight: bold;
 }
+
 
 .turn {
     text-align: center;
@@ -147,14 +163,27 @@ body {
     background-color: var(--color-reiniciar);
     color: var(--color-principal);
     font-size: 1.2rem;
-    font-weight: bold;
+    font-weight: 500;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     height: auto;
     width: 100%;
-    max-width: 280px;
+    max-width: 230px;
     padding: 1rem;
     border-radius: 40px;
     border: none;
-    
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.rest-game:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(240, 120, 72, 0.4);
+    filter: brightness(1.05);
+}
+
+.rest-game:active {
+    transform: translateY(0px);
+    box-shadow: 0 3px 8px rgba(240, 120, 72, 0.3);
 }
 
 footer {
