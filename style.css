@@ -1,0 +1,165 @@
+:root {
+    --color-principal: #e0f7fa;
+    --color-tarjetas: rgba(243, 248, 252, 0.986);
+    --color-reiniciar: #F07848;
+    --font: 'Plus Jakarta Sans'
+
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    
+}
+
+body {
+    background-color: var(--color-principal);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+}
+
+.tablero {
+    width: 100%;
+    max-width: 600px; 
+    margin: 0 auto;   
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+}
+
+.header {
+    display: flex;
+    height: auto;
+    width: 100%;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-derecha,
+.header-izquierda {
+    display: flex;
+    flex-direction: row;
+    gap: 1.2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: scale(1.2);
+}
+
+.titulo,
+.icono i,
+.btn i {
+    font-size: 1.6rem;
+}
+
+.players {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.box-player {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 0.7rem;
+    border-radius: 40px;
+    background-color: var(--color-tarjetas);
+    width: 100%;
+    max-width: 256px;
+    height: 100%;
+    padding: 1rem;
+}
+
+.player1 {
+    border: solid 1px #F5C8B8;
+}
+.player2 {  
+    border: solid 1px #a3e4a3;
+}
+
+.icono-player {
+    font-size: 1.4rem;
+}
+
+.score_jugador {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.turn {
+    text-align: center;
+    width: auto;
+    padding: 0.8rem 1rem;
+    background-color: #FDDDD0;
+    color: #F07848;
+    border: 1.5px solid #F5C0A8;
+    border-radius: 999px;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+
+
+}
+
+.juego {
+    width: 100%;
+    max-width: 350px;
+    height: 350px;
+    border-radius: 40px;
+    background-color: var(--color-tarjetas);
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+    padding: 2rem;
+    gap: 1rem;
+}
+
+.casilla {
+    border-right: solid 2px #C8EEF0;
+    border-bottom: solid 2px #C8EEF0;
+    padding: 10px;
+}
+
+.casilla:hover {
+    transform: scale(1.1);   
+}
+
+.rest-game {
+    background-color: var(--color-reiniciar);
+    color: var(--color-principal);
+    font-size: 1.2rem;
+    font-weight: bold;
+    height: auto;
+    width: 100%;
+    max-width: 280px;
+    padding: 1rem;
+    border-radius: 40px;
+    border: none;
+    
+}
+
+footer {
+    text-align: center;
+    color: #64bdd1;
+    font-weight: 500px;
+    gap: 0;
+}
