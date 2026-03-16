@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" render></script>
+    <script src="script.js" defer></script>
     <title>Tic Tac Toe</title>
 </head>
 <body>
@@ -28,29 +28,47 @@
         <div class="players">
             <div class="box-player player1">
                 <i class="fa-regular fa-circle icono-player" style="color: rgb(240, 120, 72);"></i>
-                <div class="name_jugador">Ignacio</div>
-                <div class="score_jugador">1</div>
+                <div class="name_jugador">Player 1</div>
+                <div class="score_jugador">0</div>
             </div>
             <div class="box-player player2">
                 <i class="fa-solid fa-x icono-player" style="color: rgb(154, 230, 154);"></i>
-                <div class="name_jugador">Pedro</div>
-                <div class="score_jugador">2</div>
+                <div class="name_jugador">Player 2</div>
+                <div class="score_jugador">0</div>
             </div>
         </div>
-        <div class="turn">Turno de Ignacio</div>
+        <div class="turn">Turno de Player 1</div>
         <div class="juego">
-            <div class="casilla"></div>
-            <div class="casilla"></div>
-            <div class="casilla"></div>
-            <div class="casilla"></div>
-            <div class="casilla"></div>
-            <div class="casilla"></div>
-            <div class="casilla"></div>
-            <div class="casilla"></div>
-            <div class="casilla"></div>
+            <div data-index="0" class="casilla"></div>
+            <div data-index="1" class="casilla"></div>
+            <div data-index="2" class="casilla"></div>
+            <div data-index="3" class="casilla"></div>
+            <div data-index="4" class="casilla"></div>
+            <div data-index="5" class="casilla"></div>
+            <div data-index="6" class="casilla"></div>
+            <div data-index="7" class="casilla"></div>
+            <div data-index="8" class="casilla"></div>
         </div>
         <button class="rest-game">Reiniciar Juego</button>
+        <div class="reglas">El primero en obtener 3 puntos gana el juego!</div>
         <footer>Creado por Ignacio</footer>
+    </div>
+
+    <div class="info">
+        <div class="box-icon">
+            <i class="fa-solid fa-trophy"></i>
+        </div>
+        <div class="ganador">Ganador:</div>
+        <div class="info-ganador"></div>
+        <button class="rest-game btn-info">Play Again</button>
+    </div>
+
+    <div class="info empate">
+        <div class="box-icon">
+            <i class="fa-regular fa-face-frown"></i>
+        </div>
+        <div class="text-empate ganador">Empate</div>
+        <button class="rest-game btn-empate">Volver a jugar</button>
     </div>
 </body>
 </html>
