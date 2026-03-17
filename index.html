@@ -12,7 +12,40 @@
     <title>Tic Tac Toe</title>
 </head>
 <body>
-    <div class="tablero">
+    <!-- SETUP SCREEN -->
+    <div class="setup-overlay" id="setupOverlay">
+        <div class="setup-card">
+            <div class="setup-header">
+                <i class="fa-solid fa-table-cells" style="color: rgb(240, 120, 72); font-size:1.6rem;"></i>
+                <h1 class="titulo">Tic Tac Toe</h1>
+            </div>
+            <h2 class="setup-subtitle">Configurar Jugadores</h2>
+
+            <div class="setup-field">
+                <label class="setup-label">
+                    <i class="fa-solid fa-x" style="color: rgb(240, 120, 72);"></i> Player 1
+                </label>
+                <input id="input-p1" class="setup-input" type="text" placeholder="Nombre del jugador 1" maxlength="20" autocomplete="off"/>
+            </div>
+
+            <div class="setup-field">
+                <label class="setup-label">
+                    <i class="fa-regular fa-circle" style="color: rgb(154, 230, 154);"></i> Player 2
+                </label>
+                <input id="input-p2" class="setup-input setup-input-p2" type="text" placeholder="Nombre del jugador 2" maxlength="20" autocomplete="off"/>
+            </div>
+
+            <p id="setup-error" class="setup-error"></p>
+
+            <button id="setup-start" class="setup-btn">
+                <i class="fa-solid fa-play" style="margin-right:0.4rem;"></i>¡Comenzar Juego!
+            </button>
+
+            <footer>Creado por Ignacio</footer>
+        </div>
+    </div>
+
+    <div class="tablero hidden">
         <div class="header">
             <div class="header-izquierda">
                 <div class="icono">
@@ -49,26 +82,28 @@
             <div data-index="7" class="casilla"></div>
             <div data-index="8" class="casilla"></div>
         </div>
-        <button class="rest-game">Reiniciar Juego</button>
+        <button id="reiniciarBtn" class="rest-game">Reiniciar Juego</button>
         <div class="reglas">El primero en obtener 3 puntos gana el juego!</div>
         <footer>Creado por Ignacio</footer>
     </div>
 
-    <div class="info">
+    <div class="info hidden" id="modalGanador">
         <div class="box-icon">
             <i class="fa-solid fa-trophy"></i>
         </div>
-        <div class="ganador">Ganador:</div>
+        <div class="ganador">¡Felicidades!</div>
         <div class="info-ganador"></div>
-        <button class="rest-game btn-info">Play Again</button>
+        <div class="ganador-sub"></div>
+        <button class="rest-game btn-info">Jugar de nuevo</button>
     </div>
 
-    <div class="info empate">
+    <div class="info empate hidden" id="modalEmpate">
         <div class="box-icon">
             <i class="fa-regular fa-face-frown"></i>
         </div>
-        <div class="text-empate ganador">Empate</div>
-        <button class="rest-game btn-empate">Volver a jugar</button>
+        <div class="text-empate ganador">¡Empate!</div>
+        <p class="ganador-sub">Nadie ganó esta ronda. ¡El puntaje se mantiene!</p>
+        <button class="btn-empate rest-game">Continuar</button>
     </div>
 </body>
 </html>

@@ -270,3 +270,130 @@ form {
 .btn-empate {
     margin: 10px;
 }
+
+/* ── Utility ── */
+.hidden {
+    display: none !important;
+}
+
+/* ── Setup Overlay ── */
+.setup-overlay {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background-color: var(--color-principal);
+}
+
+.setup-card {
+    background-color: var(--color-tarjetas);
+    border-radius: 40px;
+    padding: 2.5rem 2rem;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    box-shadow: 0 8px 32px rgba(240, 120, 72, 0.12);
+    border: 1.5px solid #F5C8B8;
+}
+
+.setup-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.setup-subtitle {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #64bdd1;
+    margin: 0;
+}
+
+.setup-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.setup-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.setup-input {
+    width: 100%;
+    padding: 0.85rem 1.1rem;
+    border-radius: 999px;
+    border: 1.5px solid #F5C8B8;
+    background-color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.setup-input:focus {
+    border-color: var(--color-reiniciar);
+    box-shadow: 0 0 0 3px rgba(240, 120, 72, 0.15);
+}
+
+.setup-input-p2 {
+    border-color: #a3e4a3;
+}
+
+.setup-input-p2:focus {
+    border-color: rgb(154, 230, 154);
+    box-shadow: 0 0 0 3px rgba(154, 230, 154, 0.2);
+}
+
+.setup-error {
+    color: var(--color-reiniciar);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    min-height: 1.2rem;
+    margin: 0;
+}
+
+.setup-btn {
+    max-width: 100%;
+    width: 100%;
+    background-color: var(--color-reiniciar);
+    color: var(--color-principal);
+    font-size: 1.1rem;
+    font-weight: 500;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding: 1rem;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.setup-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(240, 120, 72, 0.4);
+    filter: brightness(1.05);
+}
+
+.setup-btn:active {
+    transform: translateY(0px);
+    box-shadow: 0 3px 8px rgba(240, 120, 72, 0.3);
+}
+
+.ganador-sub {
+    font-size: 1rem;
+    color: #888;
+    font-weight: 500;
+    text-align: center;
+    padding: 0 1rem;
+}

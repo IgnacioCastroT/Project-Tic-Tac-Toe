@@ -1,147 +1,195 @@
-const casilla = document.querySelectorAll(".casilla");
-const name_jugador = document.querySelectorAll(".name_jugador");
-let score_jugador = document.querySelectorAll(".score_jugador");
-let turno = document.querySelector(".turno");
-const rest_game = document.querySelector(".rest-game");
-let info = document.querySelectorAll(".info")
-let ganador = document.querySelector(".info-ganador")
-let btn_info = document.querySelector(".btn-info")
-let btn_empate = document.querySelector(".btn-empate")
-let currentPlayer;
-let simbolo = marcador();
+/* ── DOM References ── */
+const casilla       = document.querySelectorAll(".casilla");
+const name_jugador  = document.querySelectorAll(".name_jugador");
+let   score_jugador = document.querySelectorAll(".score_jugador");
+const turno         = document.querySelector(".turn");
+const reiniciarBtn  = document.getElementById("reiniciarBtn");
+const modalGanador  = document.getElementById("modalGanador");
+const modalEmpate   = document.getElementById("modalEmpate");
+const infoGanador   = document.querySelector(".info-ganador");
+const ganadorSubs   = document.querySelectorAll(".ganador-sub");
+const btn_info      = document.querySelector(".btn-info");
+const btn_empate    = document.querySelector(".btn-empate");
 
+/* ── Setup Screen ── */
+const setupOverlay = document.getElementById("setupOverlay");
+const gameBoard    = document.querySelector(".tablero");
+const setupStart   = document.getElementById("setup-start");
+const inputP1      = document.getElementById("input-p1");
+const inputP2      = document.getElementById("input-p2");
+const setupError   = document.getElementById("setup-error");
+
+let p1Name = "Player 1";
+let p2Name = "Player 2";
+let currentPlayer;
+
+/* ── Win conditions ── */
 const winConditions = [
-    [0,1,2],
-    [3,4,5],
-    [6,7,8],
-    [0,3,6],
-    [1,4,7],
-    [2,5,8],
-    [0,4,8],
-    [2,4,6]
+    [0,1,2],[3,4,5],[6,7,8],
+    [0,3,6],[1,4,7],[2,5,8],
+    [0,4,8],[2,4,6]
 ];
 
+let boardGame = { board: ["","","","","","","","",""] };
 
-let boardGame = {
-   board: ["","","","","","","","",""],
+/* ── Setup: start game ── */
+setupStart.addEventListener("click", () => {
+    const v1 = inputP1.value.trim();
+    const v2 = inputP2.value.trim();
+
+    if (!v1 || !v2) {
+        setupError.textContent = "¡Ingresá el nombre de ambos jugadores!";
+        return;
+    }
+
+    setupError.textContent = "";
+    p1Name = v1;
+    p2Name = v2;
+
+    name_jugador[0].textContent = p1Name;
+    name_jugador[1].textContent = p2Name;
+
+    setupOverlay.classList.add("hidden");
+    gameBoard.classList.remove("hidden");
+
+    comenzar();
+});
+
+/* ── Game init ── */
+function actualizarTurno() {
+    turno.textContent = `Turno de ${currentPlayer === 0 ? p1Name : p2Name}`;
 }
 
 function comenzar() {
-    restGame()
-    currentPlayer = Math.floor(Math.random() * 2)
+    restBoard();
+    resetScores();
+    currentPlayer = Math.floor(Math.random() * 2);
+    actualizarTurno();
 }
 
 function cambiarTurno() {
-    if (currentPlayer == 0) {
-        currentPlayer = 1
-    }else {
-        currentPlayer = 0
-    }
+    currentPlayer = currentPlayer === 0 ? 1 : 0;
+    actualizarTurno();
 }
 
-/*Marcar casilla*/
+/* ── Mark cell ── */
 casilla.forEach(cel => {
     cel.addEventListener("click", () => {
-        let index = cel.dataset.index;
+        const index = cel.dataset.index;
+        if (boardGame.board[index] !== "") return;
 
-        if (boardGame.board[index] == "") {
-            let simbolo = marcador();
-            cel.textContent = simbolo;
-            cel.style.color = simbolo == "X" ? "#F07848" : "rgb(154, 230, 154)";
-            boardGame.board[index] = simbolo;
-            ganarRonda(boardGame.board);
-            cambiarTurno();
-        } else if (!boardGame.board.includes("")) {
-            info[1].style.display = "flex"
-            btn_empate.addEventListener("click", () => {info[1].style.display = "none"})
-            restBoard();
+        const simbolo = marcador();
+        cel.textContent = simbolo;
+        cel.style.color = simbolo === "X" ? "#F07848" : "rgb(154, 230, 154)";
+        boardGame.board[index] = simbolo;
+
+        if (ganarRonda()) return;   // winner found → handled inside
+
+        if (!boardGame.board.includes("")) {
+            // Board full, no winner → DRAW
+            mostrarEmpate();
+            return;
         }
+
+        cambiarTurno();
     });
 });
 
 function marcador() {
-    if (currentPlayer == 0){
-        return "X"
-    }if (currentPlayer == 1) {
-        return "O"
-    }
+    return currentPlayer === 0 ? "X" : "O";
 }
 
-/*Puntaje*/
-function ganarRonda(currentPlayer) {
-
-    for (let condition of winConditions) {
-        const [a, b, c] = condition
+/* ── Win check ── */
+function ganarRonda() {
+    for (const [a, b, c] of winConditions) {
         if (
             boardGame.board[a] !== "" &&
             boardGame.board[a] === boardGame.board[b] &&
             boardGame.board[a] === boardGame.board[c]
         ) {
-            sumarPunto()
-            restBoard()
-            return boardGame.board[a]
+            sumarPunto();
+            return true;
         }
     }
-    return null
+    return false;
 }
 
 function sumarPunto() {
-    if (currentPlayer == 0) {
-        score_jugador[0].textContent++
-    }else{
-        score_jugador[1].textContent++
+    if (currentPlayer === 0) {
+        score_jugador[0].textContent++;
+    } else {
+        score_jugador[1].textContent++;
     }
-    
-    ganarPartida()
+    ganarPartida();
 }
 
 function ganarPartida() {
-    if (parseInt(score_jugador[0].textContent) >= 3 || parseInt(score_jugador[1].textContent) >= 3) {
-        info[0].style.display = "flex"
-        ganador.textContent = "Has ganado"
-        restGame()
+    const p1Score = parseInt(score_jugador[0].textContent);
+    const p2Score = parseInt(score_jugador[1].textContent);
+
+    if (p1Score >= 3 || p2Score >= 3) {
+        const winner = currentPlayer === 0 ? p1Name : p2Name;
+        // Show winner modal
+        infoGanador.textContent = winner;
+        if (ganadorSubs.length > 0) {
+            ganadorSubs[0].textContent = "¡Has ganado el juego!";
+        }
+        modalGanador.classList.remove("hidden");
+        modalGanador.style.display = "flex";
+    } else {
+        // Round won but game continues — reset board after brief moment
+        restBoard();
+        cambiarTurno();
     }
 }
 
-
-/*Bot Player*/
-function randomCell() {
-    return Math.floor(Math.random() * 9)
+/* ── Draw ── */
+function mostrarEmpate() {
+    modalEmpate.classList.remove("hidden");
+    modalEmpate.style.display = "flex";
 }
 
-function marcarCeldaBot(){
-    if (currentPlayer === "player2"){
-    }
-}
-
-
-
-/*Reiniciar Juego*/
-rest_game.addEventListener("click", restGame)
-
-function restBoard() {
-
-    casilla.forEach(cel => {
-    cel.textContent = ""
-    })
-    boardGame.board = ["","","","","","","","",""]
-}
-
-function restGame() {
-    casilla.forEach(cel => {
-        cel.textContent = ""
-    })
-
-    score_jugador.forEach(score => {
-        score.textContent = "0"
-    })
-
-    boardGame.board = ["","","","","","","","",""]
-}
-
+/* ── Modal buttons ── */
+// Winner: "Jugar de nuevo" → fully reset game back to setup
 btn_info.addEventListener("click", () => {
-    restGame()
-    info[0].style.display = "none"
-})
+    modalGanador.style.display = "none";
+    modalGanador.classList.add("hidden");
+    resetFullGame();
+});
 
-comenzar()
+// Draw: "Continuar" → reset board only, keep scores
+btn_empate.addEventListener("click", () => {
+    modalEmpate.style.display = "none";
+    modalEmpate.classList.add("hidden");
+    restBoard();
+    cambiarTurno();
+});
+
+/* ── Reiniciar Juego button: full reset → back to setup ── */
+reiniciarBtn.addEventListener("click", () => {
+    resetFullGame();
+});
+
+/* ── Reset helpers ── */
+function restBoard() {
+    casilla.forEach(cel => { cel.textContent = ""; });
+    boardGame.board = ["","","","","","","","",""];
+}
+
+function resetScores() {
+    score_jugador.forEach(s => { s.textContent = "0"; });
+}
+
+function resetFullGame() {
+    restBoard();
+    resetScores();
+    gameBoard.classList.add("hidden");
+    setupOverlay.classList.remove("hidden");
+    inputP1.value = "";
+    inputP2.value = "";
+    setupError.textContent = "";
+    modalGanador.style.display = "none";
+    modalGanador.classList.add("hidden");
+    modalEmpate.style.display = "none";
+    modalEmpate.classList.add("hidden");
+}
